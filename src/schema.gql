@@ -1,0 +1,104 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Attribute {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  attributeName: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type SubCategory {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  subCategoryName: String!
+  category: Category!
+  advertisements: [Advertisement!]!
+  attributes: [Attribute!]!
+}
+
+type Category {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  categoryName: String!
+  advertisements: [Advertisement!]!
+  subCategories: [SubCategory!]!
+}
+
+type Suburb {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  suburbName: String!
+  city: City!
+  advertisements: [Advertisement!]!
+}
+
+type City {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  cityName: String!
+  suburbs: [Suburb!]!
+  advertisements: [Advertisement!]!
+}
+
+type Advertisement {
+  id: Float!
+  isActive: Boolean!
+  createdDateTime: DateTime!
+  title: String!
+  description: String!
+  adType: AdvertisementType!
+  category: Category!
+  subCategory: SubCategory!
+  city: City!
+  suburb: Suburb!
+}
+
+enum AdvertisementType {
+  Rent
+  Sale
+}
+
+type Query {
+  summaries: [Advertisement!]!
+}
+
+type Mutation {
+  createAd(advertisementInput: AdvertisementInput!): Advertisement!
+}
+
+input AdvertisementInput {
+  title: String!
+  description: String!
+  adType: AdvertisementType!
+  subCategory: SubCategoryInput!
+  category: CategoryInput!
+  city: CityInput!
+  suburb: SuburbInput!
+}
+
+input SubCategoryInput {
+  id: Float!
+}
+
+input CategoryInput {
+  id: Float!
+}
+
+input CityInput {
+  id: Float!
+}
+
+input SuburbInput {
+  id: Float!
+}
